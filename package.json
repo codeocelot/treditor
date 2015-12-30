@@ -24,6 +24,7 @@
     "eslint-loader": "^1.1.1",
     "file-loader": "^0.8.5",
     "jest": "^0.1.40",
+    "lodash": "^3.10.1",
     "node-sass": "^3.4.2",
     "path": "^0.12.7",
     "react": "^0.14.3",
