@@ -9,7 +9,6 @@ export default class Node extends React.Component{
     super(props);
     console.log(props)
     this.props = props;
-    // debugger;
     this.state = {
       value:'',
       shift:false
@@ -36,8 +35,11 @@ export default class Node extends React.Component{
     return children.map(c=>{return(<Node {...c}/> )})
   }
   handleInput = (evt) =>{
+    if(evt.target.key==='ArrowLeft'){
+      console.log('Arrow left!!!!!<-----------------------')
+    }
     this.setState({value:evt.target.value})
-    Actions.update(this.props.model.id,this.state.value)
+    Actions.update(this.props.model.id,evt.target.value)
   }
   handleNewChild = () =>{
     Actions.create(this.props.model.id,'')
@@ -71,13 +73,14 @@ export default class Node extends React.Component{
   }
 
   render = () =>{
-    var children = this.props.children? this.props.children.map(node=><Node key={node.model.id}{...node} />) : '';
-
+    var children = this.props.children? this.props.children.map(node=><Node key={node.model.id}{...node} showId={this.props.showId} />) : '';
+    var id = this.props.showId? <span>ID: {this.props.model.id}</span> : '';
     return(
       <li>
+        {id}
         <button onClick={this.handleNewChild} >Add new child</button>
         <button onClick={this.handleDelete} >Remove </button>
-        <input type="text" onChange={this.handleInput} value={this.state.value} ref="input" onKeyDown={this.handleKeyPress} />
+        <input type="text" onChange={this.handleInput} defaultValue={this.state.value} value={this.state.value} ref="input" onKeyDown={this.handleKeyPress} />
 
         <ol>
           {children}

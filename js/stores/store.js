@@ -39,10 +39,17 @@ export default Reflux.createStore({
   },
 
   onRemove(id){
-    debugger;
       var n = this.root.first(n=>n.model.id === id);
       n.drop();
       this.trigger(Constants.UPDATE,this.root);
+  },
+
+  createParent(id){
+    var p = tree.parse({id:_.uniqueId()});
+    p.addChild(this.root);
+    // p.children = [this.root];
+    this.root = p;
+    this.trigger(Constants.UPDATE,this.root);
   },
 
   onRefocus(dir,id){
@@ -50,8 +57,21 @@ export default Reflux.createStore({
     let target = node;
     switch(dir){
       case Constants.LEFT:
-        var parent = node.getPath();
-        target = parent[parent.length-2];
+        var path = node.getPath();
+        switch(path.length){
+          case 0:
+            break;
+          case 1:
+            this.createParent();
+            target = this.root;
+            debugger;
+            break;
+          case 2:
+          default:
+            var parent = node.getPath();
+            target = parent[parent.length-2];
+            break;
+        }
         break;
       case Constants.RIGHT:
         var child = node.children[0];
@@ -61,9 +81,9 @@ export default Reflux.createStore({
         break;
       case Constants.DOWN:
         var parents = node.getPath();
-        var siblings = parents[parents.length-2].children;
+        var siblings = parents[parents.length - 2 ].children;
         if(node.getIndex() < siblings.length - 1 ){
-          target = siblings[node.getIndex() + 1]
+          target = siblings[node.getIndex() + 1 ]
         } else {
           Actions.create(parents[parents.length-2].model.id,'')
         }

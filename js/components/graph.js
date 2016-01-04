@@ -14,11 +14,13 @@ export default class Graph extends React.Component{
           id:1,
           value:''
         }
-      }
+      },
+      showId:false
     }
     Actions.refresh();
   }
   componentDidMount = () => {
+
     Store.listen((type,payload)=>{
       switch(type){
         case Constants.UPDATE:
@@ -28,14 +30,18 @@ export default class Graph extends React.Component{
 
     })
   }
+  toggleIds = () => {
+    this.setState({showId:!this.state.showId})
+  }
   render = () =>{
     // let root = this.state.nodes.root;
     // this.state.key = "root"
     return(
       <div>
-      <h1>A graph component</h1>
+        <label htmlFor='show-ids'>Show Ids</label>
+        <input onChange={this.toggleIds} name="show-ids" type='checkbox'/>
       <ol>
-            <Node key={this.state.nodes.model.id} {...this.state.nodes} />
+            <Node key={this.state.nodes.model.id} {...this.state.nodes} showId={this.state.showId} />
       </ol>
 
       </div>
