@@ -4,5 +4,7 @@ export default {
   'LEFT':'LEFT',
   'RIGHT':'RIGHT',
   'DOWN':'DOWN',
-  'UP':'UP'
+  'UP':'UP',
+  'ERROR':'ERROR',
+  'NULL':'NULL'
 }

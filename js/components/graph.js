@@ -15,7 +15,8 @@ export default class Graph extends React.Component{
           value:''
         }
       },
-      showId:false
+      showId:true,
+      error:null
     }
     Actions.refresh();
   }
@@ -24,8 +25,11 @@ export default class Graph extends React.Component{
     Store.listen((type,payload)=>{
       switch(type){
         case Constants.UPDATE:
-        this.setState({nodes:payload})
-        break;
+          this.setState({nodes:payload})
+          break;
+        case Constants.ERROR:
+          this.setState({error:payload})
+          break;
       }
 
     })
@@ -39,9 +43,9 @@ export default class Graph extends React.Component{
     return(
       <div>
         <label htmlFor='show-ids'>Show Ids</label>
-        <input onChange={this.toggleIds} name="show-ids" type='checkbox'/>
+        <input checked={this.state.showId} onChange={this.toggleIds} name="show-ids" type='checkbox'/>
       <ol>
-            <Node key={this.state.nodes.model.id} {...this.state.nodes} showId={this.state.showId} />
+            <Node key={this.state.nodes.model.id} {...this.state.nodes} showId={this.state.showId}/>
       </ol>
 
       </div>

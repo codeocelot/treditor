@@ -1,6 +1,10 @@
 li{
   list-style:none;
+  input[type='text']:focus{
+    background-color: yellow;
+  }
 }
+
 
 // $list-color: #C0C0C0;
 //
