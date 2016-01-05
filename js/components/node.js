@@ -22,25 +22,22 @@ export default class Node extends React.Component{
     let ref_input = this.refs.input;
     Store.listen((type,payload)=>{
       switch(type){
-        case 'UPDATE':
-        break;
-        case 'FOCUS':
-        if(payload.model.id === this.props.model.id){
-          // ReactDOM.findDOMNode(this.refs.input).focus();
-          ReactDOM.findDOMNode(ref_input).focus();
-        }
-        break;
+        case Constants.UPDATE:
+          break;
+        case Constants.FOCUS:
+          if(payload.model.id === this.props.model.id){
+            // ReactDOM.findDOMNode(this.refs.input).focus();
+            ReactDOM.findDOMNode(ref_input).focus();
+          }
+          break;
       }
-    }).bind(this);
-        Actions.refresh();
+    });
+    Actions.refresh();
   }
   fmtChildren = (children) =>{
     return children.map(c=>{return(<Node {...c}/> )})
   }
   handleInput = (evt) =>{
-    if(evt.target.key==='ArrowLeft'){
-      console.log('Arrow left!!!!!<-----------------------')
-    }
     this.setState({value:evt.target.value})
     Actions.update(this.props.model.id,evt.target.value)
   }

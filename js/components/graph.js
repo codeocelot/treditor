@@ -25,7 +25,6 @@ export default class Graph extends React.Component{
     Store.listen((type,payload)=>{
       switch(type){
         case Constants.UPDATE:
-        debugger;
           this.setState({nodes:payload})
           break;
         case Constants.ERROR:
