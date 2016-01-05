@@ -9,7 +9,7 @@ module.exports = {
 	output:{
 		filename:'bundle.js',
 		path:__dirname + '/dist',
-		publicPath: 'http://localhost:8080/dist/'
+		publicPath: 'dist/'
 	},
 	plugins: [
 		// kills the compilation upon an error.
