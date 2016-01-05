@@ -6,8 +6,6 @@ import _ from 'lodash'
 import TreeModel from 'tree-model'
 let tree = new TreeModel();
 
-// import _ from 'underscore'
-
 export default Reflux.createStore({
   init(){
     this.root = tree.parse({id:_.uniqueId(),value:''});
@@ -24,7 +22,6 @@ export default Reflux.createStore({
       var node = tree.parse({id:_.uniqueId()})
       parent.addChild(node);
     }
-
     this.trigger(Constants.UPDATE,this.root)
   },
 
@@ -44,7 +41,6 @@ export default Reflux.createStore({
       if(!parent){
         debugger;
         this.root = tree.parse({id:_.uniqueId(),value:''})
-        // return this.trigger(Constants.UPDATE,tree.parse({id:_.uniqueId(),value:''}))
       }else{
         var newIndex = Math.max(n.getIndex()-1,0)
         n.drop();
@@ -55,11 +51,11 @@ export default Reflux.createStore({
           Actions.refocus(null,parent.model.id);
         }
       }
-
       this.trigger(Constants.UPDATE,this.root);
   },
 
   createParent(id){
+    debugger;
     var p = tree.parse({id:_.uniqueId()});
     p.addChild(this.root);
     // p.children = [this.root];

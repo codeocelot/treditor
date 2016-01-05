@@ -4,6 +4,7 @@ import Actions from '../actions/actions'
 import Store from '../stores/store'
 import Constants from '../constants/constants'
 import keys from 'key_codes'
+import TextField from 'material-ui/lib/text-field'
 
 export default class Node extends React.Component{
   constructor(props){
@@ -18,7 +19,8 @@ export default class Node extends React.Component{
     this.setState({
       value:this.props.model.value
     });
-    ReactDOM.findDOMNode(this.refs.input).focus();
+    this.refs.input.focus();
+    // ReactDOM.findDOMNode(this.refs.input).focus();
     let ref_input = this.refs.input;
     Store.listen((type,payload)=>{
       switch(type){
@@ -27,7 +29,8 @@ export default class Node extends React.Component{
         case Constants.FOCUS:
           if(payload.model.id === this.props.model.id){
             // ReactDOM.findDOMNode(this.refs.input).focus();
-            ReactDOM.findDOMNode(ref_input).focus();
+            ref_input.focus();
+            // ReactDOM.findDOMNode(ref_input).focus();
           }
           break;
       }
@@ -75,9 +78,7 @@ export default class Node extends React.Component{
           Actions.remove(this.props.model.id);
       }
       evt.preventDefault();
-
     }
-
   }
 
   render = () =>{
@@ -94,18 +95,7 @@ export default class Node extends React.Component{
     return(
       <li>
         {id}
-
-        {/*
-        {(()=>{
-          return this.props.parent?
-          <button onClick={this.handleDelete} >Remove </button>
-          :
-          '';
-
-        })()}
-        */}
-        <input type="text" onChange={this.handleInput} defaultValue={this.state.value} value={this.state.value} ref="input" onKeyDown={this.handleKeyPress} />
-
+        <TextField multiLine={true} onChange={this.handleInput} defaultValue={this.state.value} ref="input" onKeyDown={this.handleKeyPress}/>
         <ol>
           {children}
         </ol>

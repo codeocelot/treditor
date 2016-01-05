@@ -4,6 +4,7 @@ import _ from 'lodash'
 import Store from '../stores/store.js'
 import Actions from '../actions/actions'
 import Constants from '../constants/constants'
+import Paper from 'material-ui/lib/paper'
 
 export default class Graph extends React.Component{
   constructor(props){
@@ -25,11 +26,11 @@ export default class Graph extends React.Component{
     Store.listen((type,payload)=>{
       switch(type){
         case Constants.UPDATE:
-          this.setState({nodes:payload})
-          break;
+        this.setState({nodes:payload})
+        break;
         case Constants.ERROR:
-          this.setState({error:payload})
-          break;
+        this.setState({error:payload})
+        break;
       }
 
     })
@@ -41,14 +42,14 @@ export default class Graph extends React.Component{
     // let root = this.state.nodes.root;
     // this.state.key = "root"
     return(
-      <div>
+      <Paper>
         <label htmlFor='show-ids'>Show Ids</label>
         <input checked={this.state.showId} onChange={this.toggleIds} name="show-ids" type='checkbox'/>
-      <ol>
-            <Node key={this.state.nodes.model.id} {...this.state.nodes} showId={this.state.showId}/>
-      </ol>
+        <ol>
+          <Node key={this.state.nodes.model.id} {...this.state.nodes} showId={this.state.showId}/>
+        </ol>
 
-      </div>
+      </Paper>
     )
   }
 }
