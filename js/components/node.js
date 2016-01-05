@@ -13,7 +13,6 @@ export default class Node extends React.Component{
     this.state = {
       value:'',
     }
-    Actions.refresh();
   }
   componentDidMount = () => {
     this.setState({
@@ -33,6 +32,7 @@ export default class Node extends React.Component{
         break;
       }
     }).bind(this);
+        Actions.refresh();
   }
   fmtChildren = (children) =>{
     return children.map(c=>{return(<Node {...c}/> )})
@@ -74,6 +74,7 @@ export default class Node extends React.Component{
           break;
         case keys.delete:
         case keys.backspace:
+        case keys.x:
           Actions.remove(this.props.model.id);
       }
       evt.preventDefault();

@@ -10,7 +10,7 @@ let tree = new TreeModel();
 
 export default Reflux.createStore({
   init(){
-    this.root = tree.parse({id:_.uniqueId(),value:'root!'});
+    this.root = tree.parse({id:_.uniqueId(),value:''});
     this.listenToMany(Actions);
     this.trigger(Constants.UPDATE,this.nodes);
   },
@@ -41,14 +41,21 @@ export default Reflux.createStore({
   onRemove(id){
       var n = this.root.first(n=>n.model.id === id);
       var parent = getParent(n);
-      var nIndex = n.getIndex();
-      n.drop();
-      if(parent.hasChildren()){
-        Actions.refocus(null,parent.children[0].model.id)
+      if(!parent){
+        debugger;
+        this.root = tree.parse({id:_.uniqueId(),value:''})
+        // return this.trigger(Constants.UPDATE,tree.parse({id:_.uniqueId(),value:''}))
+      }else{
+        var newIndex = Math.max(n.getIndex()-1,0)
+        n.drop();
+        if(parent.hasChildren()){
+          Actions.refocus(null,parent.children[newIndex].model.id)
+        }
+        else{
+          Actions.refocus(null,parent.model.id);
+        }
       }
-      else{
-        Actions.refocus(null,parent.model.id);
-      }
+
       this.trigger(Constants.UPDATE,this.root);
   },
 

@@ -11,11 +11,11 @@ export default class Graph extends React.Component{
     this.state = {nodes:
       {model:
         {
-          id:1,
+          id:_.uniqueId(),
           value:''
         }
       },
-      showId:true,
+      showId:false,
       error:null
     }
     Actions.refresh();
@@ -25,6 +25,7 @@ export default class Graph extends React.Component{
     Store.listen((type,payload)=>{
       switch(type){
         case Constants.UPDATE:
+        debugger;
           this.setState({nodes:payload})
           break;
         case Constants.ERROR:
