@@ -52,25 +52,33 @@ export default class Graph extends React.Component{
     return(
       <section>
         <p>
-          Create nodes with {kbd('ctrl')} + {kbd('j')},{kbd('k')},{kbd('l')},{kbd(';')}
+          Navigate the tree with {kbd('ctrl')} + {kbd('j')},{kbd('k')},{kbd('l')},{kbd(';')}.  Vim style but shifted one key to the right.
         </p>
+        <p>
+          Delete elements with {kbd('ctrl')} + {kbd('x')},{kbd('del')} or {kbd('enter')}
+        </p>
+        <div >
+          <label htmlFor='show-ids'>Show Ids</label>
+          <input checked={this.state.showId} onChange={this.toggleIds} name="show-ids" type='checkbox'/>
+        </div>
       </section>
     )
   }
   render = () =>{
-
+    let elementStyle = {padding:'10px'}
+    let headingStyle = {}
     // let helpText = this.state.showHelp ? 'Control with ctrl + {j,k,l,;}.  Like vim except shifted right one key' : ''
     return(
-      <Paper>
-        <div>
-          <label htmlFor='show-help'>Show Help</label>
+      <Paper className='paper' style={{padding:'30px'}}>
+        <div style={headingStyle}>
+          <h1>Treditor</h1>
+        </div>
+        <div style={elementStyle}>
+          {/*<label htmlFor='show-help'>Show Help</label>*/}
           <button onClick={this.toggleHelp} type="button">Show Help</button>
           {this.state.showHelp ? this.helpText() : ''}
         </div>
-        <div>
-          <label htmlFor='show-ids'>Show Ids</label>
-          <input checked={this.state.showId} onChange={this.toggleIds} name="show-ids" type='checkbox'/>
-        </div>
+
         <ol>
           <Node key={this.state.nodes.model.id} {...this.state.nodes} showId={this.state.showId}/>
         </ol>

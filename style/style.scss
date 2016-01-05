@@ -16,6 +16,28 @@ li{
   padding-left:15px;
 }
 
+// .paper{
+//   padding:30px;
+// }
+
+button{
+  margin:10px;
+}
+
+.paper > ol{
+  padding-left:10px;
+}
+
+.focused{
+  color:#48CB4F;
+}
+
+.container{
+  max-width:1024px;
+  margin:auto auto;
+  // margin: 30px;
+}
+
 .kbd {
     -moz-background-clip:border;
     -moz-background-inline-policy:continuous;

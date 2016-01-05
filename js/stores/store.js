@@ -42,7 +42,6 @@ export default Reflux.createStore({
       this.root = tree.parse({id:_.uniqueId(),value:''})
     } else {
       var parent = this.root.first(n=>n.model.id === parentID);
-      console.log(parent)
       var node = tree.parse({id:_.uniqueId()})
       parent.addChild(node);
     }

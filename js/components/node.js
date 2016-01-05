@@ -10,10 +10,10 @@ import FontAwesome from 'react-fontawesome'
 export default class Node extends React.Component{
   constructor(props){
     super(props);
-    console.log(props)
     this.props = props;
     this.state = {
       value:'',
+      isFocused:true
     }
   }
   componentDidMount = () => {
@@ -21,17 +21,13 @@ export default class Node extends React.Component{
       value:this.props.model.value
     });
     this.refs.input.focus();
-    // ReactDOM.findDOMNode(this.refs.input).focus();
-    let ref_input = this.refs.input;
     Store.listen((type,payload)=>{
       switch(type){
         case Constants.UPDATE:
           break;
         case Constants.FOCUS:
           if(payload.model.id === this.props.model.id){
-            // ReactDOM.findDOMNode(this.refs.input).focus();
-            ref_input.focus();
-            // ReactDOM.findDOMNode(ref_input).focus();
+            this.refs.input.focus()
           }
           break;
       }
@@ -90,14 +86,14 @@ export default class Node extends React.Component{
           {...node}
           showId={this.props.showId}
         />
-      )
-      : '';
+      ) : '';
     var id = this.props.showId? <span>ID: {this.props.model.id}</span> : '';
+    var icon = this.state.isFocused ? <FontAwesome name='circle' className="focused"/> : <FontAwesome name="circle-thin" className="notFocused"/>
     return(
       <li>
         {id}
-        <FontAwesome name='circle-thin' />
-        <TextField multiLine={true} onChange={this.handleInput} defaultValue={this.state.value} value={this.state.value} ref="input" onKeyDown={this.handleKeyPress} className="node-content"/>
+        {icon}
+        <TextField multiLine={false} onChange={this.handleInput} defaultValue={this.state.value} value={this.state.value} ref="input" onKeyDown={this.handleKeyPress} className="node-content" onFocus={()=>{this.setState({isFocused:true})}} onBlur={()=>this.setState({isFocused:false})}/>
         <ol>
           {children}
         </ol>
