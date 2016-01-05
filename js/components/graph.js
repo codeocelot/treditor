@@ -11,35 +11,66 @@ export default class Graph extends React.Component{
       {model:
         {
           id:_.uniqueId(),
-          value:'weed'
+          value:''
         }
       },
       showId:false,
+      showHelp:false,
       error:null
     }
-    this.props.actions.create(null,'root!')
+    // this.props.actions.create(null,'root!')
     // this.props.actions.refresh();
   }
   componentDidMount = () => {
     this.props.store.listen((type,payload)=>{
       switch(type){
         case Constants.UPDATE:
-          this.setState({nodes:payload})
-          break;
+
+        this.setState({nodes:payload})
+        break;
         case Constants.ERROR:
-          this.setState({error:payload})
-          break;
+        this.setState({error:payload})
+        break;
       }
     })
   }
   toggleIds = () => {
     this.setState({showId:!this.state.showId})
   }
+  toggleHelp = () => {
+    this.setState({showHelp:!this.state.showHelp})
+  }
+  toJSON = () => {
+    function json(children){
+      let d = children.map(c=> {return {id: c.model.id,  model: c.model }});
+      debugger;
+    }
+    json(this.props.children)
+  }
+  helpText = () => {
+    function kbd(txt){return(<span className="kbd">{txt}</span>)}
+    return(
+      <section>
+        <p>
+          Create nodes with {kbd('ctrl')} + {kbd('j')},{kbd('k')},{kbd('l')},{kbd(';')}
+        </p>
+      </section>
+    )
+  }
   render = () =>{
+
+    // let helpText = this.state.showHelp ? 'Control with ctrl + {j,k,l,;}.  Like vim except shifted right one key' : ''
     return(
       <Paper>
-        <label htmlFor='show-ids'>Show Ids</label>
-        <input checked={this.state.showId} onChange={this.toggleIds} name="show-ids" type='checkbox'/>
+        <div>
+          <label htmlFor='show-help'>Show Help</label>
+          <button onClick={this.toggleHelp} type="button">Show Help</button>
+          {this.state.showHelp ? this.helpText() : ''}
+        </div>
+        <div>
+          <label htmlFor='show-ids'>Show Ids</label>
+          <input checked={this.state.showId} onChange={this.toggleIds} name="show-ids" type='checkbox'/>
+        </div>
         <ol>
           <Node key={this.state.nodes.model.id} {...this.state.nodes} showId={this.state.showId}/>
         </ol>

@@ -3,7 +3,8 @@ module.exports = {
 	devtool:'eval',
 	entry: [
 			'./js/index.js',
-			'./style/style.scss'
+			'./style/style.scss',
+			'./node_modules/font-awesome/scss/font-awesome.scss'
 	],
 	output:{
 		filename:'bundle.js',
@@ -39,7 +40,7 @@ module.exports = {
 			// 	test:/\.css$/,
 			// 	loaders:["style","css"]
 			// },
-			{test   : /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+			{test   : /\.(ttf|eot|svg|woff(2)?).*$/,
 				loader : 'file-loader'
 			}
 		]

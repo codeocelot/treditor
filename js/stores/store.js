@@ -6,11 +6,35 @@ import _ from 'lodash'
 import TreeModel from 'tree-model'
 let tree = new TreeModel();
 
+// let TreeModel = Object.assign({},_TreeModel);
+// debugger;
+// TreeModel.prototype.stringify = () => {
+//   debugger;
+// }
+//
+// let tree = new TreeModel();
+//
+// tree.stringify = () => {
+//   debugger;
+// }
+
 export default Reflux.createStore({
   init(){
-    this.root = tree.parse({id:_.uniqueId(),value:''});
+
+    // this.root = localStorage.root || tree.parse({id:_.uniqueId(),value:''});
+    if(localStorage.root && localStorage.root != '' && typeof localStorage.root === 'object'){
+      this.root = localStorage.root;
+      // var ls = JSON.parse(localStorage.root);
+      // this.root = tree.parse({id:ls.model.id});
+      // this.root.model = ls.model;
+      // this.root.children = ls.children;
+    } else {
+      this.root = tree.parse({id:_.uniqueId(),value:''});
+      // debugger;
+      // this.root.stringify();
+    }
     this.listenToMany(Actions);
-    this.trigger(Constants.UPDATE,this.nodes);
+    this.trigger(Constants.UPDATE,this.root);
   },
 
   onCreate(parentID,value){
@@ -32,6 +56,9 @@ export default Reflux.createStore({
   onUpdate(id,val){
     var n = this.root.first(n=>n.model.id === id);
     n.model.value = val;
+    // debugger;
+    // localStorage.root = JSON.stringify(this.root);
+    localStorage.setItem('root',this.root)
     this.trigger(Constants.UPDATE,this.root)
   },
 
@@ -39,7 +66,6 @@ export default Reflux.createStore({
     var n = this.root.first(n=>n.model.id === id);
     var parent = getParent(n);
     if(!parent){
-      debugger;
       this.root = tree.parse({id:_.uniqueId(),value:''})
     }else{
       var newIndex = Math.max(n.getIndex()-1,0)

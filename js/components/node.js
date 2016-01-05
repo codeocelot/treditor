@@ -5,6 +5,7 @@ import Store from '../stores/store'
 import Constants from '../constants/constants'
 import keys from 'key_codes'
 import TextField from 'material-ui/lib/text-field'
+import FontAwesome from 'react-fontawesome'
 
 export default class Node extends React.Component{
   constructor(props){
@@ -95,7 +96,8 @@ export default class Node extends React.Component{
     return(
       <li>
         {id}
-        <TextField multiLine={true} onChange={this.handleInput} defaultValue={this.state.value} value={this.state.value} ref="input" onKeyDown={this.handleKeyPress}/>
+        <FontAwesome name='circle-thin' />
+        <TextField multiLine={true} onChange={this.handleInput} defaultValue={this.state.value} value={this.state.value} ref="input" onKeyDown={this.handleKeyPress} className="node-content"/>
         <ol>
           {children}
         </ol>
