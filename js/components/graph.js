@@ -17,7 +17,8 @@ export default class Graph extends React.Component{
       showId:false,
       error:null
     }
-    this.props.actions.refresh();
+    this.props.actions.create(null,'root!')
+    // this.props.actions.refresh();
   }
   componentDidMount = () => {
     this.props.store.listen((type,payload)=>{
