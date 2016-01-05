@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app';
-import Todo from './components/todo';
 import Graph from './components/graph';
+
+import store from './stores/store';
+import actions from './actions/actions';
 
 ReactDOM.render(
   <App>
-    <Graph/>
+    <Graph store={store} actions={actions} />
   </App>,
   document.getElementById('react-app')
 )

@@ -95,7 +95,7 @@ export default class Node extends React.Component{
     return(
       <li>
         {id}
-        <TextField multiLine={true} onChange={this.handleInput} defaultValue={this.state.value} ref="input" onKeyDown={this.handleKeyPress}/>
+        <TextField multiLine={true} onChange={this.handleInput} defaultValue={this.state.value} value={this.state.value} ref="input" onKeyDown={this.handleKeyPress}/>
         <ol>
           {children}
         </ol>

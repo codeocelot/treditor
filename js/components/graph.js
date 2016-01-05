@@ -1,8 +1,6 @@
 import React from 'react'
 import Node from './node'
 import _ from 'lodash'
-import Store from '../stores/store.js'
-import Actions from '../actions/actions'
 import Constants from '../constants/constants'
 import Paper from 'material-ui/lib/paper'
 
@@ -13,16 +11,16 @@ export default class Graph extends React.Component{
       {model:
         {
           id:_.uniqueId(),
-          value:''
+          value:'weed'
         }
       },
       showId:false,
       error:null
     }
-    Actions.refresh();
+    this.props.actions.refresh();
   }
   componentDidMount = () => {
-    Store.listen((type,payload)=>{
+    this.props.store.listen((type,payload)=>{
       switch(type){
         case Constants.UPDATE:
           this.setState({nodes:payload})
@@ -49,7 +47,9 @@ export default class Graph extends React.Component{
   }
 }
 
-// Graph.propTypes = {
-//   node:React.PropTypes.Object,
-//   children:React.PropTypes.Array
-// }
+Graph.propTypes = {
+  store : React.PropTypes.object,
+  actions : React.PropTypes.object
+  // node:React.PropTypes.Object,
+  // children:React.PropTypes.Array
+}
