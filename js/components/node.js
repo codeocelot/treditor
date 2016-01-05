@@ -21,13 +21,14 @@ export default class Node extends React.Component{
       value:this.props.model.value
     });
     this.refs.input.focus();
+    let ref_input = this.refs.input;
     Store.listen((type,payload)=>{
       switch(type){
         case Constants.UPDATE:
           break;
         case Constants.FOCUS:
           if(payload.model.id === this.props.model.id){
-            this.refs.input.focus()
+            ref_input.focus()
           }
           break;
       }
