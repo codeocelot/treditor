@@ -22,25 +22,21 @@ export default class Graph extends React.Component{
     Actions.refresh();
   }
   componentDidMount = () => {
-
     Store.listen((type,payload)=>{
       switch(type){
         case Constants.UPDATE:
-        this.setState({nodes:payload})
-        break;
+          this.setState({nodes:payload})
+          break;
         case Constants.ERROR:
-        this.setState({error:payload})
-        break;
+          this.setState({error:payload})
+          break;
       }
-
     })
   }
   toggleIds = () => {
     this.setState({showId:!this.state.showId})
   }
   render = () =>{
-    // let root = this.state.nodes.root;
-    // this.state.key = "root"
     return(
       <Paper>
         <label htmlFor='show-ids'>Show Ids</label>
@@ -48,7 +44,6 @@ export default class Graph extends React.Component{
         <ol>
           <Node key={this.state.nodes.model.id} {...this.state.nodes} showId={this.state.showId}/>
         </ol>
-
       </Paper>
     )
   }

@@ -36,37 +36,30 @@ export default Reflux.createStore({
   },
 
   onRemove(id){
-      var n = this.root.first(n=>n.model.id === id);
-      var parent = getParent(n);
-      if(!parent){
-        debugger;
-        this.root = tree.parse({id:_.uniqueId(),value:''})
-      }else{
-        var newIndex = Math.max(n.getIndex()-1,0)
-        n.drop();
-        if(parent.hasChildren()){
-          Actions.refocus(null,parent.children[newIndex].model.id)
-        }
-        else{
-          Actions.refocus(null,parent.model.id);
-        }
+    var n = this.root.first(n=>n.model.id === id);
+    var parent = getParent(n);
+    if(!parent){
+      debugger;
+      this.root = tree.parse({id:_.uniqueId(),value:''})
+    }else{
+      var newIndex = Math.max(n.getIndex()-1,0)
+      n.drop();
+      if(parent.hasChildren()){
+        Actions.refocus(null,parent.children[newIndex].model.id)
       }
-      this.trigger(Constants.UPDATE,this.root);
+      else{
+        Actions.refocus(null,parent.model.id);
+      }
+    }
+    this.trigger(Constants.UPDATE,this.root);
   },
 
   createParent(id){
-    debugger;
     var p = tree.parse({id:_.uniqueId()});
     p.addChild(this.root);
-    // p.children = [this.root];
     this.root = p;
     this.trigger(Constants.UPDATE,this.root);
   },
-  //
-  // onFocus(id){
-  //   let node = this.root.first(n=>n.model.id === id);
-  //   this.trigger(Constants.FOCUS,node);
-  // }
 
   onRefocus(dir,id){
     let node = this.root.first(n=>n.model.id === id );
@@ -75,29 +68,27 @@ export default Reflux.createStore({
       case Constants.LEFT:
         var path = node.getPath();
         switch(path.length){
-          case 0:
-            break;
           case 1:
-            this.createParent();
-            target = this.root;
-            break;
+          this.createParent();
+          target = this.root;
+          break;
           case 2:
           default:
-            var parent = node.getPath();
-            target = parent[parent.length-2];
-            break;
+          var parent = node.getPath();
+          target = parent[parent.length-2];
+          break;
         }
         break;
       case Constants.RIGHT:
         var child = node.children[0];
         if(!child)
-          Actions.create(id,'')
+        Actions.create(id,'')
         else target = child;
         break;
       case Constants.DOWN:
-        if(node.isRoot()){
-          this.trigger(Constants.ERROR,new Error('Cannot create sibling of root node'))
-        }
+        if(node.isRoot())
+        return this.trigger(Constants.ERROR,new Error('Cannot create sibling of root node'))
+
         var parents = node.getPath();
         var siblings = parents[parents.length - 2 ].children;
         if(node.getIndex() < siblings.length - 1 ){
@@ -110,13 +101,12 @@ export default Reflux.createStore({
         var parents = node.getPath();
         var siblings = parents[parents.length-2].children;
         if(node.getIndex() > 0)
-          target = siblings[node.getIndex()-1]
+        target = siblings[node.getIndex()-1]
         break;
       case null:
         break;
     }
     this.trigger(Constants.FOCUS,target)
-
   }
 
 })
