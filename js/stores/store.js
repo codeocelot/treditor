@@ -1,8 +1,8 @@
-'use strict'
 import Reflux from 'reflux'
 import Actions from '../actions/actions'
 import Constants from '../constants/constants'
 import _ from 'lodash'
+
 import TreeModel from 'tree-model'
 let tree = new TreeModel();
 
@@ -23,7 +23,7 @@ export default Reflux.createStore({
 
     // this.root = localStorage.root || tree.parse({id:_.uniqueId(),value:''});
     if(localStorage.root && localStorage.root != '' && typeof localStorage.root === 'object'){
-      this.root = localStorage.root;
+      // this.root = localStorage.root;
       // var ls = JSON.parse(localStorage.root);
       // this.root = tree.parse({id:ls.model.id});
       // this.root.model = ls.model;

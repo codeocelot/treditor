@@ -22,7 +22,7 @@ export default class Node extends React.Component{
     });
     this.refs.input.focus();
     let ref_input = this.refs.input;
-    Store.listen((type,payload)=>{
+    this.unsubscribe = Store.listen((type,payload)=>{
       switch(type){
         case Constants.UPDATE:
           break;
@@ -34,6 +34,9 @@ export default class Node extends React.Component{
       }
     });
     Actions.refresh();
+  }
+  componentWillUnmount = () => {
+    this.unsubscribe();
   }
   fmtChildren = (children) =>{
     return children.map(c=>{return(<Node {...c}/> )})
@@ -79,6 +82,12 @@ export default class Node extends React.Component{
     }
   }
 
+  getFromServer(){
+    $.get('/users',function(res){
+      this.setState({data:res});
+    })
+  }
+
   render = () =>{
     var children = this.props.children?
       this.props.children.map(
@@ -88,6 +97,8 @@ export default class Node extends React.Component{
           showId={this.props.showId}
         />
       ) : '';
+
+
     var id = this.props.showId? <span>ID: {this.props.model.id}</span> : '';
     var icon = this.state.isFocused ? <FontAwesome name='circle' className="focused"/> : <FontAwesome name="circle-thin" className="notFocused"/>
     return(

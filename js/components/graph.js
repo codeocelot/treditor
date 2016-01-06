@@ -8,16 +8,18 @@ export default class Graph extends React.Component{
   constructor(props){
     super(props);
     this.state = {nodes:
-      {model:
+      {
+        model:
         {
           id:_.uniqueId(),
           value:''
-        }
+        },
       },
       showId:false,
       showHelp:false,
       error:null
     }
+    this.props.actions.create(null,'')
     // this.props.actions.create(null,'root!')
     // this.props.actions.refresh();
   }
@@ -25,7 +27,7 @@ export default class Graph extends React.Component{
     this.props.store.listen((type,payload)=>{
       switch(type){
         case Constants.UPDATE:
-
+        debugger;
         this.setState({nodes:payload})
         break;
         case Constants.ERROR:
@@ -52,7 +54,8 @@ export default class Graph extends React.Component{
     return(
       <section>
         <p>
-          Navigate the tree with {kbd('ctrl')} + {kbd('j')},{kbd('k')},{kbd('l')},{kbd(';')}.  Vim style but shifted one key to the right.
+          Navigate the tree with {kbd('ctrl')} + {kbd('j')},{kbd('k')},{kbd('l')},{kbd(';')}  or
+          {kbd('←')},{kbd('↓')},{kbd('↑')},{kbd('→')}.  Vim style but shifted one key to the right.
         </p>
         <p>
           Delete elements with {kbd('ctrl')} + {kbd('x')},{kbd('del')} or {kbd('enter')}
@@ -90,6 +93,4 @@ export default class Graph extends React.Component{
 Graph.propTypes = {
   store : React.PropTypes.object,
   actions : React.PropTypes.object
-  // node:React.PropTypes.Object,
-  // children:React.PropTypes.Array
 }
