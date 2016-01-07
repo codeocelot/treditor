@@ -20,19 +20,7 @@ let tree = new TreeModel();
 
 export default Reflux.createStore({
   init(){
-
-    // this.root = localStorage.root || tree.parse({id:_.uniqueId(),value:''});
-    if(localStorage.root && localStorage.root != '' && typeof localStorage.root === 'object'){
-      // this.root = localStorage.root;
-      // var ls = JSON.parse(localStorage.root);
-      // this.root = tree.parse({id:ls.model.id});
-      // this.root.model = ls.model;
-      // this.root.children = ls.children;
-    } else {
       this.root = tree.parse({id:_.uniqueId(),value:''});
-      // debugger;
-      // this.root.stringify();
-    }
     this.listenToMany(Actions);
     this.trigger(Constants.UPDATE,this.root);
   },

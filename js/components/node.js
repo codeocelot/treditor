@@ -82,12 +82,6 @@ export default class Node extends React.Component{
     }
   }
 
-  getFromServer(){
-    $.get('/users',function(res){
-      this.setState({data:res});
-    })
-  }
-
   render = () =>{
     var children = this.props.children?
       this.props.children.map(
@@ -99,13 +93,15 @@ export default class Node extends React.Component{
       ) : '';
 
 
-    var id = this.props.showId? <span>ID: {this.props.model.id}</span> : '';
-    var icon = this.state.isFocused ? <FontAwesome name='circle' className="focused"/> : <FontAwesome name="circle-thin" className="notFocused"/>
+    var id = this.props.showId ? <span>ID: {this.props.model.id}</span> : '';
+    var icon = this.state.isFocused ? <FontAwesome name='circle' className="focused icon"/> : <FontAwesome name="circle-thin" className="notFocused icon"/>
     return(
       <li>
-        {id}
         {icon}
-        <TextField multiLine={false} onChange={this.handleInput} defaultValue={this.state.value} value={this.state.value} ref="input" onKeyDown={this.handleKeyPress} className="node-content" onFocus={()=>{this.setState({isFocused:true})}} onBlur={()=>this.setState({isFocused:false})}/>
+        {/*<div style={{width:'80%'}}>*/}
+        <TextField  multiLine={false} onChange={this.handleInput} defaultValue={this.state.value} value={this.state.value} ref="input" onKeyDown={this.handleKeyPress} className="node-content" onFocus={()=>{this.setState({isFocused:true})}} onBlur={()=>this.setState({isFocused:false})} style={{width:'95%'}}/>
+        {/*</div>*/}
+        {id}
         <ol>
           {children}
         </ol>

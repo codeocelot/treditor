@@ -1,3 +1,8 @@
+$footer-height: 20px;
+$body-height: calc(100vh - #{$footer-height});
+$paper-height: 80vh;
+$icon-min-width: 10px;
+
 
 li{
  -webkit-border-radius: 4px !important;
@@ -20,18 +25,50 @@ button{
   margin:10px;
 }
 
+.paper{
+  min-height: $paper-height;
+  overflow:auto;
+  // padding:75px;
+}
+
 .paper > ol{
   padding-left:10px;
+}
+
+.body{
+  min-height: $body-height;
+  // max-width:1px;
+  margin:auto auto;
 }
 
 .focused{
   color:#48CB4F;
 }
 
-.container{
-  max-width:1024px;
-  margin:auto auto;
-  // margin: 30px;
+.inline-icon{
+  width: $icon-min-width;
+}
+
+.inline-input{
+  width: calc(100% - #{$icon-min-width})
+}
+
+
+
+// .container{
+//   max-width:1024px;
+//   margin:auto auto;
+//   // margin: 30px;
+// }
+
+.json-output{
+  // padding:20px;
+}
+
+
+
+section{
+  padding:20px;
 }
 
 .kbd {
@@ -49,8 +86,22 @@ button{
     text-align: center;
 }
 
+body{
+  // max-height:100%;
+}
+
 footer{
-  position:absolute;
+  // position:absolute;
+  // padding:10px 0 10px 0;
+  min-height:$footer-height;
   bottom:0;
+  position:relative;
   // width:100%;
+}
+
+.fork-on-github img {
+  position:absolute;
+  top:0;
+  left:0;
+  border:0;
 }

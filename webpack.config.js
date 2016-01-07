@@ -4,7 +4,10 @@ module.exports = {
 	entry: [
 			'./js/index.js',
 			'./style/style.scss',
-			'./node_modules/font-awesome/scss/font-awesome.scss'
+			'./node_modules/font-awesome/scss/font-awesome.scss',
+			'./node_modules/skeleton-scss/scss/skeleton.scss'
+			// './node_modules/bootstrap/less/mixins/grid-framework.less',
+			// './node_modules/bootstrap/less/grid.less'
 	],
 	output:{
 		filename:'bundle.js',
@@ -35,6 +38,10 @@ module.exports = {
 				test: /\.scss$/,
 				loaders: ["style", "css", "sass"]
 			},
+			// {
+			// 	test: /\.less$/,
+			// 	loaders: ["style", "css", "less"]
+			// },
 			// USE THIS IF YOU'RE USING VANILLA CSS
 			// {
 			// 	test:/\.css$/,
