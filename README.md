@@ -1,4 +1,4 @@
-# A Tree Nodetaker
+# A Tree Notetaker
 
 In university, I preferred taking notes point-form.  I always got frustrated by the lack of arbitrarily deeply nested bullet points with existing solutions.  I whipped this together to solve a pain point in my own style of learning.  
 
